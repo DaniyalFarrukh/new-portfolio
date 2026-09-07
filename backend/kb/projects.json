@@ -1,0 +1,202 @@
+[
+  {
+    "title": "AI PDF Chatbot (Portfolio Project)",
+    "description": "Fully local, free-tier RAG chatbot for querying PDFs. Based on mayooear/ai-pdf-chatbot-langchain-main.",
+    "tech_stack": [
+      "Ollama (nomic-embed-text + llama3.1:8b)",
+      "ChromaDB",
+      "LangChain",
+      "LangGraph",
+      "FastAPI"
+    ],
+    "github_url": "https://github.com/DaniyalFarrukh",
+    "live_url": "",
+    "key_features": [
+      "Fully local RAG",
+      "PDF querying"
+    ],
+    "category": "AI / ML"
+  },
+  {
+    "title": "Contextual RAG System",
+    "description": "Enhancing RAG with Contextual Embeddings. Implemented Anthropic's Contextual Retrieval cookbook end-to-end. Achieved measurable RAG accuracy improvements through contextual chunking.",
+    "tech_stack": [
+      "Ollama",
+      "Voyage AI",
+      "Elasticsearch",
+      "Cohere",
+      "LangChain"
+    ],
+    "github_url": "https://github.com/DaniyalFarrukh/Enhancing-RAG-with-Contextual-Embeddings-",
+    "live_url": "",
+    "key_features": [
+      "Contextual Embeddings",
+      "Anthropic cookbook implementation"
+    ],
+    "category": "AI / ML"
+  },
+  {
+    "title": "Personal Portfolio Website",
+    "description": "Features: 3D particle globe, floating geometry, animated sections. Deployed on Vercel.",
+    "tech_stack": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "shadcn/ui",
+      "Framer Motion",
+      "GSAP",
+      "React Three Fiber"
+    ],
+    "github_url": "",
+    "live_url": "https://updated-portfolio-smoky-chi.vercel.app",
+    "key_features": [
+      "3D particle globe",
+      "Floating geometry",
+      "Animated sections"
+    ],
+    "category": "Full-Stack"
+  },
+  {
+    "title": "Azure Databricks Private Workspace",
+    "description": "Built a fully private Azure Databricks workspace using Terraform. Deep familiarity with Azure networking: private endpoints, split-horizon DNS.",
+    "tech_stack": [
+      "Terraform",
+      "Azure Databricks",
+      "VNet",
+      "Private Link",
+      "Azure DNS"
+    ],
+    "github_url": "",
+    "live_url": "",
+    "key_features": [
+      "VNet injection",
+      "Private Link",
+      "Private DNS Zones",
+      "Azure DNS Private Resolver"
+    ],
+    "category": "DevOps / Infrastructure"
+  },
+  {
+    "title": "Databricks CI/CD Pipeline with DABs",
+    "description": "Built using Databricks Asset Bundles (DABs) and GitHub Actions. Target workspace: dbc-e63afb4e-05ad.cloud.databricks.com.",
+    "tech_stack": [
+      "Databricks Asset Bundles (DABs)",
+      "GitHub Actions"
+    ],
+    "github_url": "",
+    "live_url": "",
+    "key_features": [
+      "CI/CD",
+      "Databricks automation"
+    ],
+    "category": "DevOps"
+  },
+  {
+    "title": "BMI / Health Risk MLOps System",
+    "description": "End-to-end ML pipeline with model registry and deployment.",
+    "tech_stack": [
+      "FastAPI",
+      "MLflow Model Registry",
+      "Databricks"
+    ],
+    "github_url": "",
+    "live_url": "",
+    "key_features": [
+      "End-to-end ML pipeline",
+      "Model registry",
+      "Model deployment"
+    ],
+    "category": "MLOps"
+  },
+  {
+    "title": "AWS ETL Pipeline (Terraform)",
+    "description": "Infrastructure as Code with Terraform. Explored AWS Step Functions for orchestration.",
+    "tech_stack": [
+      "AWS DMS",
+      "S3",
+      "Glue",
+      "Athena",
+      "Terraform",
+      "AWS Step Functions"
+    ],
+    "github_url": "",
+    "live_url": "",
+    "key_features": [
+      "Region: eu-north-1",
+      "ETL orchestration"
+    ],
+    "category": "Data Engineering"
+  },
+  {
+    "title": "Embedding Search Visualizer",
+    "description": "React visualizer + Python benchmark script. Visualises and benchmarks different ANN search approaches.",
+    "tech_stack": [
+      "React",
+      "Python"
+    ],
+    "github_url": "",
+    "live_url": "",
+    "key_features": [
+      "KD-Tree",
+      "Ball Tree",
+      "HNSW"
+    ],
+    "category": "AI / ML"
+  },
+  {
+    "title": "DevOps MERN Stack Deployment (Case Study)",
+    "description": "Deployed MERN stack app to AWS EC2. Full CI/CD pipeline implementation.",
+    "tech_stack": [
+      "Docker Compose",
+      "GitHub Actions",
+      "Terraform",
+      "AWS EC2",
+      "MERN Stack"
+    ],
+    "github_url": "",
+    "live_url": "",
+    "key_features": [
+      "Production deployment",
+      "CI/CD"
+    ],
+    "category": "DevOps"
+  },
+  {
+    "title": "dbt Project on Snowflake (oms_dbt_proj)",
+    "description": "Resolved UTF-8 BOM errors and schema misconfiguration issues. Database: SLEEKMART_OMS on Snowflake.",
+    "tech_stack": [
+      "dbt",
+      "Snowflake"
+    ],
+    "github_url": "",
+    "live_url": "",
+    "key_features": [
+      "Schema configuration",
+      "Error resolution"
+    ],
+    "category": "Data Engineering"
+  },
+  {
+    "title": "EasyLease (Final Year Project)",
+    "description": "Easy Lease is a web-based Online Rental Platform developed as a Final Year Project to streamline the rental process for products and services. The platform enables users to list, browse, and rent items such as vehicles, event equipment, electronics, tools, and fashion accessories through a secure and responsive system.",
+    "tech_stack": [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MySQL"
+    ],
+    "github_url": "",
+    "live_url": "",
+    "key_features": [
+      "Real-time booking",
+      "User authentication",
+      "Product and booking management",
+      "Secure local payment integration (EasyPaisa, JazzCash, bank transfer)",
+      "Reviews & ratings",
+      "Messaging",
+      "Search & filtering",
+      "Admin dashboard"
+    ],
+    "category": "Full-Stack"
+  }
+]
