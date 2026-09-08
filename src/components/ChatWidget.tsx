@@ -5,6 +5,7 @@ import { MessageSquare, X, Send, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { PopupModal } from "react-calendly";
+import ReactMarkdown from "react-markdown";
 
 type Message = {
   role: "user" | "assistant";
@@ -43,9 +44,7 @@ export default function ChatWidget() {
     setIsLoading(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_CHAT_API_URL || "http://localhost:7860";
-      
-      const response = await fetch(`${apiUrl}/chat`, {
+      const response = await fetch(`/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -54,7 +53,18 @@ export default function ChatWidget() {
         }),
       });
 
-      if (!response.ok) throw new Error("API response was not ok");
+      if (!response.ok) {
+        let errorMessage = "API response was not ok";
+        try {
+          const errorData = await response.json();
+          if (errorData.response) {
+            errorMessage = errorData.response;
+          }
+        } catch {
+          // ignore parsing error
+        }
+        throw new Error(errorMessage);
+      }
       
       const data = await response.json();
       let responseText = data.response;
@@ -67,9 +77,10 @@ export default function ChatWidget() {
       setMessages(prev => [...prev, { role: "assistant", content: responseText }]);
     } catch (error) {
       console.error("Chat error:", error);
+      const errorMessage = error instanceof Error ? error.message : "Sorry, I'm having trouble connecting to my brain right now. Please try again later or contact Daniyal directly!";
       setMessages(prev => [...prev, { 
         role: "assistant", 
-        content: "Sorry, I'm having trouble connecting to my brain right now. Please try again later or contact Daniyal directly!" 
+        content: errorMessage
       }]);
     } finally {
       setIsLoading(false);
@@ -88,7 +99,7 @@ export default function ChatWidget() {
       {/* Toggle Button */}
       <button 
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 p-4 bg-primary text-black rounded-full shadow-lg shadow-primary/30 hover:scale-105 transition-all duration-300 ${isOpen ? 'scale-0 opacity-0 pointer-events-none' : 'scale-100 opacity-100'}`}
+        className={`fixed bottom-6 right-6 z-[9999] p-4 bg-primary text-black rounded-full shadow-lg shadow-primary/30 hover:scale-105 transition-all duration-300 cursor-pointer ${isOpen ? 'scale-0 opacity-0 pointer-events-none' : 'scale-100 opacity-100 pointer-events-auto'}`}
         aria-label="Open Chat"
       >
         <MessageSquare className="w-6 h-6" />
@@ -102,16 +113,16 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 z-50 w-[90vw] md:w-[400px] h-[600px] max-h-[85vh] bg-[#111] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden font-sans text-sm backdrop-blur-xl"
+            className="fixed bottom-6 right-6 z-[9999] w-[90vw] md:w-[400px] h-[600px] max-h-[85vh] bg-[#111] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden font-sans text-sm backdrop-blur-xl"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 bg-black/50 border-b border-white/5">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/30 shrink-0 bg-black relative">
-                  <Image src="/daniyal_ai_logo.jpg" alt="Daniyal AI Logo" fill className="object-cover" />
+                  <Image src="/daniyal_ai_logo.jpg" alt="Daniyal Assistant Logo" fill className="object-cover" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white tracking-wide">Daniyal AI</h3>
+                  <h3 className="font-semibold text-white tracking-wide">Daniyal Assistant</h3>
                   <div className="flex items-center gap-1.5">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
                     <span className="text-xs text-white/50">Online</span>
@@ -138,16 +149,34 @@ export default function ChatWidget() {
                 >
                   <div className={`flex gap-3 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                     <div className={`shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center relative ${msg.role === 'user' ? 'bg-primary/20' : 'bg-black border border-primary/20'}`}>
-                      {msg.role === 'user' ? <User className="w-4 h-4 text-primary" /> : <Image src="/daniyal_ai_logo.jpg" alt="Daniyal AI" fill className="object-cover" />}
+                      {msg.role === 'user' ? <User className="w-4 h-4 text-primary" /> : <Image src="/daniyal_ai_logo.jpg" alt="Daniyal Assistant" fill className="object-cover" />}
                     </div>
                     <div 
-                      className={`rounded-2xl px-4 py-2.5 ${
+                      className={`rounded-2xl px-4 py-2.5 overflow-hidden ${
                         msg.role === 'user' 
                           ? 'bg-primary text-black rounded-tr-sm font-medium' 
-                          : 'bg-white/10 text-white/90 rounded-tl-sm'
+                          : 'bg-white/10 text-white/90 rounded-tl-sm text-[13px] md:text-sm'
                       }`}
                     >
-                      <span className="whitespace-pre-wrap leading-relaxed">{msg.content}</span>
+                      {msg.role === 'user' ? (
+                        <span className="whitespace-pre-wrap leading-relaxed">{msg.content}</span>
+                      ) : (
+                        <ReactMarkdown
+                          components={{
+                            a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-dark underline underline-offset-2" />,
+                            p: ({ node, ...props }) => <p {...props} className="mb-3 last:mb-0 leading-relaxed" />,
+                            ul: ({ node, ...props }) => <ul {...props} className="list-disc pl-5 mb-3 last:mb-0 space-y-1.5 marker:text-white/40" />,
+                            ol: ({ node, ...props }) => <ol {...props} className="list-decimal pl-5 mb-3 last:mb-0 space-y-1.5 marker:text-white/40" />,
+                            li: ({ node, ...props }) => <li {...props} className="leading-relaxed" />,
+                            h1: ({ node, ...props }) => <h1 {...props} className="text-lg font-bold mb-2 mt-4 first:mt-0 text-white" />,
+                            h2: ({ node, ...props }) => <h2 {...props} className="text-base font-bold mb-2 mt-4 first:mt-0 text-white" />,
+                            h3: ({ node, ...props }) => <h3 {...props} className="text-sm font-bold mb-2 mt-3 first:mt-0 text-white/90" />,
+                            strong: ({ node, ...props }) => <strong {...props} className="font-semibold text-white" />
+                          }}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -158,7 +187,7 @@ export default function ChatWidget() {
                 <div className="flex justify-start">
                   <div className="flex gap-3 max-w-[85%] flex-row">
                     <div className="shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-black border border-primary/20 relative">
-                      <Image src="/daniyal_ai_logo.jpg" alt="Daniyal AI" fill className="object-cover" />
+                      <Image src="/daniyal_ai_logo.jpg" alt="Daniyal Assistant" fill className="object-cover" />
                     </div>
                     <div className="bg-white/10 text-white/90 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1">
                       <div className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />

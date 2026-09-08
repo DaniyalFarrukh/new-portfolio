@@ -2,6 +2,7 @@
 
 import { ExternalLink } from "lucide-react";
 import Background from "@/components/Background";
+import Image from "next/image";
 
 const featuredProjects = [
   {
@@ -94,9 +95,10 @@ export default function ProjectsPage() {
                 {/* Image Section */}
                 <div className="w-full lg:w-3/5 aspect-video bg-black/60 rounded-2xl border border-white/5 flex flex-col items-center justify-center group overflow-hidden relative">
                   {project.image ? (
-                    <img 
+                    <Image 
                       src={project.image} 
                       alt={project.title} 
+                      fill
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500 group-hover:scale-[1.02]" 
                     />
                   ) : (
