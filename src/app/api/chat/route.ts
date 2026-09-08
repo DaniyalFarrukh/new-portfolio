@@ -87,7 +87,7 @@ export async function POST(req: Request) {
     });
 
     // Convert history format to Gemini's expected format (user / model)
-    let formattedHistory = Array.isArray(history) 
+    const formattedHistory = Array.isArray(history) 
       ? history.map((msg: { role: string; content: string }) => ({
           role: msg.role === "assistant" ? "model" : "user",
           parts: [{ text: msg.content }],

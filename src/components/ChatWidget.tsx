@@ -161,6 +161,7 @@ export default function ChatWidget() {
                       {msg.role === 'user' ? (
                         <span className="whitespace-pre-wrap leading-relaxed">{msg.content}</span>
                       ) : (
+                        /* eslint-disable @typescript-eslint/no-unused-vars */
                         <ReactMarkdown
                           components={{
                             a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-dark underline underline-offset-2" />,
@@ -176,6 +177,7 @@ export default function ChatWidget() {
                         >
                           {msg.content}
                         </ReactMarkdown>
+                        /* eslint-enable @typescript-eslint/no-unused-vars */
                       )}
                     </div>
                   </div>
